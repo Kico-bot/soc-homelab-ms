@@ -97,7 +97,7 @@ Schritt-für-Schritt-Anleitung zum Nachbauen der gesamten Umgebung.
    ```powershell
    Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
 6. Überprüfe den Status zur Bestätigung mit diesem Befehl:
-   Get-NetFirewallProfile | Select-Object Name, Enabled
+   ```Get-NetFirewallProfile | Select-Object Name, Enabled
 
 > 📸 Screenshot speichern als: `screenshots/05_firewall-disabled.png`
 
