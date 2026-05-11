@@ -1,6 +1,6 @@
 # SETUP – Technische Installationsanleitung
 
-Schritt-für-Schritt-Anleitung zum Nachbauen der gesamten Lab-Umgebung.
+Schritt-für-Schritt-Anleitung zum Nachbauen der gesamten Umgebung.
 
 ---
 
@@ -8,7 +8,6 @@ Schritt-für-Schritt-Anleitung zum Nachbauen der gesamten Lab-Umgebung.
 
 - Azure-Account (kostenlos unter https://azure.microsoft.com/free/)
 - Webbrowser mit Zugriff auf https://portal.azure.com
-- Ca. 2–3 Stunden Zeit
 
 ---
 
@@ -261,4 +260,4 @@ SecurityEvent
 
 ---
 
-*Alle Screenshots in den Ordner `screenshots/` ablegen und im README verlinken.*
+*Alle Screenshots in dem Ordner `screenshots/` abgelegt.*
