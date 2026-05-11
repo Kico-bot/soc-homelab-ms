@@ -1,0 +1,65 @@
+// ============================================================
+// Brute Force Detection – Microsoft Sentinel
+// Technique: T1110.001 / T1110.003
+// EventID 4625 = Failed Logon
+// ============================================================
+
+// --- Query 1: Alle fehlgeschlagenen Anmeldungen ---
+SecurityEvent
+| where EventID == 4625
+| project TimeGenerated, Account, IpAddress, Computer, WorkstationName
+| order by TimeGenerated desc
+
+
+// --- Query 2: Angreifer mit mehr als 10 Versuchen ---
+SecurityEvent
+| where EventID == 4625
+| summarize
+    Versuche       = count(),
+    ErsterVersuch  = min(TimeGenerated),
+    LetzterVersuch = max(TimeGenerated)
+    by IpAddress, Account, Computer
+| where Versuche > 10
+| order by Versuche desc
+
+
+// --- Query 3: Brute-Force-Wellen (5-Minuten-Fenster) ---
+SecurityEvent
+| where EventID == 4625
+| summarize Versuche = count() by IpAddress, bin(TimeGenerated, 5m)
+| where Versuche > 20
+| order by TimeGenerated desc
+
+
+// --- Query 4: Password Spraying Detection ---
+// Eine IP greift viele verschiedene Accounts an
+SecurityEvent
+| where EventID == 4625
+| summarize AnzahlAccounts = dcount(Account), Versuche = count()
+    by IpAddress, bin(TimeGenerated, 10m)
+| where AnzahlAccounts > 5
+| order by AnzahlAccounts desc
+
+
+// --- Query 5: Credential Stuffing – häufigste Ziel-Accounts ---
+SecurityEvent
+| where EventID == 4625
+| summarize Versuche = count() by Account
+| order by Versuche desc
+| take 20
+
+
+// --- Query 6: Zeitdiagramm – Angriffe über Zeit ---
+SecurityEvent
+| where EventID == 4625
+| summarize Angriffe = count() by bin(TimeGenerated, 1h)
+| order by TimeGenerated asc
+| render timechart
+
+
+// --- Query 7: Erfolgreiche Anmeldung nach Brute Force ---
+// EventID 4624 = Successful Logon, LogonType 10 = RemoteInteractive (RDP)
+SecurityEvent
+| where EventID == 4624 and LogonType == 10
+| project TimeGenerated, Account, IpAddress, Computer
+| order by TimeGenerated desc
