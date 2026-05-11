@@ -4,7 +4,7 @@
 
 ---
 
-## 🎯 Projektziel & Relevanz für den Unternehmenseinsatz
+## Projektziel & Relevanz für den Unternehmenseinsatz
 
 Dieses Projekt simuliert eine produktionsnahe SOC-Umgebung (Security Operations Center) in der Cloud. Ziel war es, den vollständigen **Detection-and-Response-Zyklus** — von der Log-Erfassung über die Bedrohungserkennung bis hin zur Incident-Analyse — hands-on zu erarbeiten und zu dokumentieren.
 
@@ -18,7 +18,7 @@ Die gewonnenen Kenntnisse sind direkt auf reale Unternehmensumgebungen übertrag
 
 ---
 
-## 🏗️ Architektur
+## Architektur
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -50,7 +50,7 @@ Die gewonnenen Kenntnisse sind direkt auf reale Unternehmensumgebungen übertrag
 
 ---
 
-## 🛠️ Eingesetzte Technologien & Produkte
+## Eingesetzte Technologien & Produkte
 
 | Kategorie | Produkt | Funktion |
 |---|---|---|
@@ -66,7 +66,7 @@ Die gewonnenen Kenntnisse sind direkt auf reale Unternehmensumgebungen übertrag
 
 ---
 
-## 📋 Aufbau & Konfiguration
+## Aufbau & Konfiguration
 
 ### 1. Azure-Infrastruktur
 
@@ -131,7 +131,7 @@ Logic App Playbook startet automatisch:
 
 ---
 
-## 🔍 KQL – Threat Hunting Queries
+## KQL – Threat Hunting Queries
 
 ### Brute-Force-Erkennung (SIEM-Kernanwendung)
 
@@ -212,7 +212,7 @@ SecurityIncident
 
 ---
 
-## 📊 Ergebnisse & Erkenntnisse
+## Ergebnisse & Erkenntnisse
 
 ### Beobachtete Angriffsmuster
 
@@ -234,7 +234,7 @@ SecurityIncident
 
 ---
 
-## 💡 Lessons Learned & Unternehmensrelevanz
+## Lessons Learned & Unternehmensrelevanz
 
 - Ohne Monitoring ist eine exponierte Ressource **innerhalb von Minuten** unter Beschuss. Sichtbarkeit ist alles
 - **KQL** ist die Kernkompetenz für Sentinel-Betrieb: eigene Detection Rules sind wertvoller als vorkonfigurierte Alerts
@@ -244,7 +244,7 @@ SecurityIncident
 
 ---
 
-## 🗂️ Repository-Struktur
+## Repository-Struktur
 
 ```
 📁 soc-homelab-microsoft/
@@ -278,7 +278,7 @@ SecurityIncident
 
 ---
 
-## 🔗 Weiterführende Ressourcen
+## Weiterführende Ressourcen
 
 - [Microsoft Sentinel Dokumentation](https://docs.microsoft.com/azure/sentinel/)
 - [Microsoft Defender XDR](https://docs.microsoft.com/microsoft-365/security/defender/)
