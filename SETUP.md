@@ -18,8 +18,8 @@ Schritt-für-Schritt-Anleitung zum Nachbauen der gesamten Umgebung.
 1. Azure Portal öffnen → Suchleiste → `Resource Groups`
 2. **Erstellen** klicken
 3. Werte eintragen:
-   - Name: `RG-SOCLab`
-   - Region: `West Europe`
+   - Name: `SOCLab`
+   - Region: `Germany West Central`
 4. **Überprüfen + Erstellen** → **Erstellen**
 
 > 📸 Screenshot speichern als: `screenshots/01_resource-group.png`
@@ -47,11 +47,11 @@ Schritt-für-Schritt-Anleitung zum Nachbauen der gesamten Umgebung.
 
 | Feld | Wert |
 |---|---|
-| Resource Group | `RG-SOCLab` |
-| VM-Name | `TI-NET-EAST-1` |
+| Resource Group | `SOCLab` |
+| VM-Name | `TI-GER-1` |
 | Region | `West Europe` |
-| Image | Windows 10 Pro oder Windows Server 2022 |
-| Größe | `Standard_B1s` |
+| Image | Windows Server 2022 |
+| Größe | `Standard_D2ls_v5` |
 | Benutzername | selbst wählen – **merken!** |
 | Passwort | sicheres Passwort – **merken!** |
 
@@ -65,7 +65,7 @@ Schritt-für-Schritt-Anleitung zum Nachbauen der gesamten Umgebung.
 
 ### 1.4 Network Security Group – alle Ports öffnen
 
-1. Resource Group `RG-SOCLab` öffnen
+1. Resource Group `SOCLab` öffnen
 2. NSG öffnen (Name endet auf `-nsg`)
 3. Bestehende RDP-Inbound-Regel **löschen**
 4. Neue Inbound-Regel:
@@ -87,14 +87,17 @@ Schritt-für-Schritt-Anleitung zum Nachbauen der gesamten Umgebung.
 
 ---
 
-### 1.5 Windows Firewall auf der VM deaktivieren
+### 1.5 Windows Firewall auf der VM deaktivieren (via PowerShell)
 
 1. Öffentliche IP der VM aus dem Azure Portal kopieren
 2. Per RDP verbinden (Windows: `mstsc` → IP eingeben)
-3. In der VM: `Win + R` → `wf.msc` → Enter
-4. „Windows Defender Firewall-Eigenschaften" öffnen
-5. Für **Domain**, **Private** und **Public**: Firewall-Status auf **Aus** setzen
-6. **OK**
+3. (Falls das blaue `sconfig`-Menü erscheint, drücke **15** und `Enter`, um zur Kommandozeile zu gelangen).
+4. Tippe `powershell` ein und drücke `Enter`, um die PowerShell-Umgebung zu starten.
+5. Führe den folgenden Befehl aus, um die Firewall für alle drei Netzwerkprofile (Domain, Private, Public) auf einmal zu deaktivieren:
+   ```powershell
+   Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
+6. Überprüfe den Status zur Bestätigung mit diesem Befehl:
+   Get-NetFirewallProfile | Select-Object Name, Enabled
 
 > 📸 Screenshot speichern als: `screenshots/05_firewall-disabled.png`
 
