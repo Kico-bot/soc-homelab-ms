@@ -12,9 +12,7 @@ Die gewonnenen Kenntnisse sind direkt auf reale Unternehmensumgebungen übertrag
 
 - **SIEM-Betrieb** mit Microsoft Sentinel (Regelwerke, KQL, Workbooks)
 - **EDR/XDR-Integration** über Microsoft Defender for Endpoint & Defender XDR
-- **Schwachstellenmanagement** mit Microsoft Defender Vulnerability Management
 - **NDR-Konzepte** durch Netzwerkanalyse auf Azure-Ebene (NSG Flow Logs, Threat Intelligence)
-- **Automatisierung** von Incident-Response-Prozessen (SOAR-Playbooks)
 
 ---
 
