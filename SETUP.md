@@ -214,7 +214,7 @@ SecurityEvent
 
 **Wichtig:** Um Kosten zu vermeiden, nach dem Lab alle Ressourcen löschen!
 
-1. Azure Portal → **Resource Groups** → `RG-SOCLab`
+1. Azure Portal → **Resource Groups** → `SOCLab`
 2. **Resource Group löschen** → alle enthaltenen Ressourcen werden automatisch entfernt
 3. Bestätigen → fertig
 
