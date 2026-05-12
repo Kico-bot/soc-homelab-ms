@@ -22,7 +22,8 @@ Schritt-für-Schritt-Anleitung zum Nachbauen der gesamten Umgebung.
    - Region: `West Europe`
 4. **Überprüfen + Erstellen** → **Erstellen**
 
-> 📸 Screenshot gespeichert als: `screenshots/01_resource-group.png`
+> Screenshot gespeichert als: `screenshots/01_resource-group.png`
+<img width="1862" height="919" alt="01_resource-group" src="https://github.com/user-attachments/assets/8ff6201b-5649-4efe-8157-bccaaf7b8650" />
 
 ---
 
@@ -36,7 +37,9 @@ Schritt-für-Schritt-Anleitung zum Nachbauen der gesamten Umgebung.
 3. Alle anderen Felder auf Standard lassen
 4. **Erstellen**
 
-> 📸 Screenshot gespeichert als: `screenshots/02_virtual-network.png`
+> Screenshot gespeichert als: `screenshots/02_virtual-network.png`
+<img width="1865" height="918" alt="02_virtual-network" src="https://github.com/user-attachments/assets/4e80c3d7-fc7b-4b05-ad44-21cee5498ee5" />
+
 
 ---
 
@@ -59,7 +62,9 @@ Schritt-für-Schritt-Anleitung zum Nachbauen der gesamten Umgebung.
 4. **Monitoring-Tab:** Boot-Diagnose **deaktivieren**
 5. **Erstellen** (dauert ca. 3–5 Minuten)
 
-> 📸 Screenshot gespeichert als: `screenshots/03_vm-created.png`
+> Screenshot gespeichert als: `screenshots/03_vm-created.png`
+<img width="1852" height="917" alt="03_vm-created" src="https://github.com/user-attachments/assets/4e098ec8-f7ff-401a-99b4-fa4ea8222228" />
+
 
 ---
 
@@ -83,7 +88,9 @@ Schritt-für-Schritt-Anleitung zum Nachbauen der gesamten Umgebung.
 
 5. **Speichern**
 
-> 📸 Screenshot gespeichert als: `screenshots/04_nsg-rule.png`
+> Screenshot gespeichert als: `screenshots/04_nsg-rule.png`
+<img width="1857" height="918" alt="04_nsg-rule" src="https://github.com/user-attachments/assets/88b1f379-13da-4afe-a786-10969caa0044" />
+
 
 ---
 
@@ -100,7 +107,9 @@ Schritt-für-Schritt-Anleitung zum Nachbauen der gesamten Umgebung.
    ```powershell
    Get-NetFirewallProfile | Select-Object Name, Enabled
 
-> 📸 Screenshot gespeichert als: `screenshots/05_firewall-disabled.png`
+> Screenshot gespeichert als: `screenshots/05_firewall-disabled.png`
+<img width="1876" height="835" alt="05_firewall-disabled" src="https://github.com/user-attachments/assets/898806a3-839a-4459-9fc4-9f03f281c28e" />
+
 
 ---
 
@@ -115,7 +124,9 @@ Schritt-für-Schritt-Anleitung zum Nachbauen der gesamten Umgebung.
    - Region: `West Europe`
 3. **Erstellen**
 
-> 📸 Screenshot gespeichert als: `screenshots/06_log-analytics-workspace.png`
+> Screenshot gespeichert als: `screenshots/06_log-analytics-workspace.png`
+<img width="1855" height="918" alt="06_log-analytics-workspace" src="https://github.com/user-attachments/assets/5d6f5c53-15f7-4994-a632-286549cb9138" />
+
 
 ---
 
@@ -124,7 +135,9 @@ Schritt-für-Schritt-Anleitung zum Nachbauen der gesamten Umgebung.
 1. Suchleiste → `Microsoft Sentinel` → **Erstellen**
 2. Workspace `Logspace-SOCLab` auswählen → **Hinzufügen**
 
-> 📸 Screenshot gespeichert als: `screenshots/07_sentinel-overview.png`
+> Screenshot gespeichert als: `screenshots/07_sentinel-overview.png`
+<img width="1851" height="915" alt="07_sentinel-overview" src="https://github.com/user-attachments/assets/24678c57-f2a2-4891-8a63-dd57030e7576" />
+
 
 ---
 
@@ -142,7 +155,9 @@ Schritt-für-Schritt-Anleitung zum Nachbauen der gesamten Umgebung.
 
 > ⏳ 10–20 Minuten warten bis erste Logs erscheinen
 
-> 📸 Screenshot gespeichert als: `screenshots/08_data-collection-rule.png`
+> Screenshot gespeichert als: `screenshots/08_data-collection-rule.png`
+<img width="1856" height="928" alt="08_data-collection-rule" src="https://github.com/user-attachments/assets/818b3a47-7e14-4cb1-9211-8ffa6b771a17" />
+
 
 
 
@@ -170,8 +185,12 @@ Schritt-für-Schritt-Anleitung zum Nachbauen der gesamten Umgebung.
 
 3. **Erstellen** (dauert einige Minuten – ca. 50.000 Einträge)
 
-> 📸 Screenshot gespeichert als: `screenshots/10_geoip-watchlist.png`
->  📸 Screenshot gespeichert als: `screenshots/10_2.png`
+> Screenshot gespeichert als: `screenshots/10_geoip-watchlist.png`
+<img width="1854" height="900" alt="10_geoip-watchlist" src="https://github.com/user-attachments/assets/d38a639f-25b3-4297-9cb5-8b31e3eb25af" />
+
+>  Screenshot gespeichert als: `screenshots/10_2.png`
+<img width="1865" height="916" alt="10_2" src="https://github.com/user-attachments/assets/5ccf8d93-5e97-4541-8337-d0e025a1f485" />
+
 
 ---
 
@@ -193,7 +212,10 @@ SecurityEvent
 
 > ⏳ Falls keine Ergebnisse: Noch 30–60 Minuten warten. Angriffe kommen garantiert!
 
-> 📸 Screenshot gespeichert als: `screenshots/11_first-brute-force-logs.png`
+> Screenshot gespeichert als: `screenshots/11_first-brute-force-logs.png`
+<img width="1855" height="919" alt="11_first-brute-force-logs" src="https://github.com/user-attachments/assets/6799c8aa-c8d2-4d4b-bc7e-3f83a269f86d" />
+
+<img width="1861" height="922" alt="logs angriffe" src="https://github.com/user-attachments/assets/8002a8ae-210b-45e6-bd56-027de166000d" />
 
 ---
 
@@ -205,7 +227,8 @@ SecurityEvent
 2. Inhalt aus `map.json` einfügen (https://github.com/Kico-bot/soc-homelab-ms/blob/main/map.json)
 3. **Speichern** → Name: `SOC-Angriffsmap`
 
-> 📸 Screenshot gespeichert als: `screenshots/12_attackmap.png`
+> Screenshot gespeichert als: `screenshots/12_attackmap.png`
+<img width="1072" height="466" alt="12_attackmap" src="https://github.com/user-attachments/assets/6cef0844-f515-4700-ba36-17fd65cd61d0" />
 
 
 ---
