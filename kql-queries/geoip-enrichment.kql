@@ -1,14 +1,14 @@
 // ============================================================
-// GeoIP Enrichment – Microsoft Sentinel
-// Voraussetzung: Watchlist "GeoIP" muss importiert sein
-// Watchlist-Alias: GeoIP, Suchschlüssel: Network
+// geoip Enrichment – Microsoft Sentinel
+// Voraussetzung: Watchlist "geoip" muss importiert sein
+// Watchlist-Alias: geoip, Suchschlüssel: Network
 // ============================================================
 
 // --- Query 1: Alle Angriffe mit Geo-Daten anreichern ---
 SecurityEvent
 | where EventID == 4625
 | extend AttackerIP = IpAddress
-| lookup kind=leftouter _GetWatchlist('GeoIP')
+| lookup kind=leftouter _GetWatchlist('geoip')
     on $left.AttackerIP == $right.Network
 | project TimeGenerated, AttackerIP, Account, Country, City, Latitude, Longitude
 | order by TimeGenerated desc
@@ -18,7 +18,7 @@ SecurityEvent
 SecurityEvent
 | where EventID == 4625
 | extend AttackerIP = IpAddress
-| lookup kind=leftouter _GetWatchlist('GeoIP')
+| lookup kind=leftouter _GetWatchlist('geoip')
     on $left.AttackerIP == $right.Network
 | summarize
     Angriffe = count(),
@@ -31,7 +31,7 @@ SecurityEvent
 // --- Query 3: Top 10 Angreifer-Länder ---
 SecurityEvent
 | where EventID == 4625
-| lookup kind=leftouter _GetWatchlist('GeoIP')
+| lookup kind=leftouter _GetWatchlist('geoip')
     on $left.IpAddress == $right.Network
 | summarize Angriffe = count() by Country
 | order by Angriffe desc
@@ -43,17 +43,17 @@ SecurityEvent
 SecurityEvent
 | where EventID == 4625
 | extend AttackerIP = IpAddress
-| lookup kind=leftouter _GetWatchlist('GeoIP')
+| lookup kind=leftouter _GetWatchlist('geoip')
     on $left.AttackerIP == $right.Network
 | summarize count() by Latitude, Longitude, Country, City
 | project Latitude, Longitude, Country, City, count_
 
 
-// --- Query 5: Angriffe aus unbekannten IPs (kein GeoIP-Match) ---
+// --- Query 5: Angriffe aus unbekannten IPs (kein geoip-Match) ---
 SecurityEvent
 | where EventID == 4625
 | extend AttackerIP = IpAddress
-| lookup kind=leftouter _GetWatchlist('GeoIP')
+| lookup kind=leftouter _GetWatchlist('geoip')
     on $left.AttackerIP == $right.Network
 | where isempty(Country)
 | summarize Versuche = count() by AttackerIP
