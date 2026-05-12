@@ -1,65 +1,69 @@
-// ============================================================
-// Brute Force Detection – Microsoft Sentinel
-// Technique: T1110.001 / T1110.003
-// EventID 4625 = Failed Logon
-// ============================================================
+KQL SOC Collection
 
-// --- Query 1: Alle fehlgeschlagenen Anmeldungen ---
+Diese Sammlung enthält praxiserprobte und optimierte Kusto Query Language (KQL) Abfragen für das Security Operations Center (SOC). Sie fokussieren sich auf die Erkennung von Identitätsangriffen, Netzwerkanomalien und das Schwachstellenmanagement.
+
+Alle Abfragen sind sofort einsatzbereit und benötigen keine manuellen Platzhalter-Anpassungen.
+
+---
+
+## 1. Identity & Access (Security Events)
+
+### Massiver Brute-Force Angriff
+Erkennt Quell-IP-Adressen, die mehr als 10 fehlgeschlagene Anmeldeversuche (Event ID 4625) auf denselben Account und Computer aufweisen.
+
+```kusto
 SecurityEvent
 | where EventID == 4625
-| project TimeGenerated, Account, IpAddress, Computer, WorkstationName
-| order by TimeGenerated desc
-
-
-// --- Query 2: Angreifer mit mehr als 10 Versuchen ---
-SecurityEvent
-| where EventID == 4625
-| summarize
-    Versuche       = count(),
-    ErsterVersuch  = min(TimeGenerated),
-    LetzterVersuch = max(TimeGenerated)
-    by IpAddress, Account, Computer
+| summarize Versuche = count() by IpAddress, Account, Computer
 | where Versuche > 10
-| order by Versuche desc
+| sort by Versuche desc
 
+Password Spraying Erkennung
 
-// --- Query 3: Brute-Force-Wellen (5-Minuten-Fenster) ---
+Identifiziert Quell-IPs, die versuchen, sich bei mehr als 5 verschiedenen Accounts erfolglos anzumelden.
+Code-Snippet
+
 SecurityEvent
 | where EventID == 4625
-| summarize Versuche = count() by IpAddress, bin(TimeGenerated, 5m)
-| where Versuche > 20
-| order by TimeGenerated desc
+| summarize BetroffeneAccounts = dcount(Account), Versuche = count() by IpAddress
+| where BetroffeneAccounts > 5
+| sort by BetroffeneAccounts desc
 
+2. Netzwerkanomalien (NSG Flow Logs)
 
-// --- Query 4: Password Spraying Detection ---
-// Eine IP greift viele verschiedene Accounts an
-SecurityEvent
-| where EventID == 4625
-| summarize AnzahlAccounts = dcount(Account), Versuche = count()
-    by IpAddress, bin(TimeGenerated, 10m)
-| where AnzahlAccounts > 5
-| order by AnzahlAccounts desc
+    Voraussetzung: NSG Flow Logs und Traffic Analytics müssen in Azure aktiviert sein. Die Tabelle AzureNetworkAnalytics_CL wird erst nach dem Eintreffen der ersten Daten erstellt.
 
+Port-Scan Erkennung
 
-// --- Query 5: Credential Stuffing – häufigste Ziel-Accounts ---
-SecurityEvent
-| where EventID == 4625
-| summarize Versuche = count() by Account
-| order by Versuche desc
-| take 20
+Sucht nach externen IPs, die innerhalb des Netzwerks mehr als 20 verschiedene Ports ansprechen (typisches Scanner-Verhalten).
+Code-Snippet
 
+AzureNetworkAnalytics_CL
+| where FlowType_s == "ExternalPublic"
+| summarize AngesprochenePorts = dcount(DestPort_d) by SrcIP_s
+| where AngesprochenePorts > 20
+| sort by AngesprochenePorts desc
 
-// --- Query 6: Zeitdiagramm – Angriffe über Zeit ---
-SecurityEvent
-| where EventID == 4625
-| summarize Angriffe = count() by bin(TimeGenerated, 1h)
-| order by TimeGenerated asc
-| render timechart
+Eingehende Verbindungen auf ungewöhnliche Ports
 
+Filtert gängige Standard-Ports (80, 443, 3389, 22) heraus und zeigt Inbound-Traffic auf potenziell gefährdeten oder unüblichen Ports.
+Code-Snippet
 
-// --- Query 7: Erfolgreiche Anmeldung nach Brute Force ---
-// EventID 4624 = Successful Logon, LogonType 10 = RemoteInteractive (RDP)
-SecurityEvent
-| where EventID == 4624 and LogonType == 10
-| project TimeGenerated, Account, IpAddress, Computer
-| order by TimeGenerated desc
+AzureNetworkAnalytics_CL
+| where FlowType_s == "ExternalPublic" and FlowDirection_s == "I"
+| extend Port = toint(DestPort_d)
+| where Port !in (80, 443, 3389, 22)
+| summarize Verbindungen = count() by SrcIP_s, Port
+| sort by Verbindungen desc
+
+Anomales Verbindungsvolumen
+
+Erkennt einzelne externe Quell-IPs, die innerhalb eines 5-Minuten-Fensters mehr als 100 Verbindungen auf einen spezifischen Port aufbauen.
+Code-Snippet
+
+AzureNetworkAnalytics_CL
+| where FlowType_s == "ExternalPublic"
+| extend DestPort = toint(DestPort_d)
+| summarize Verbindungen = count() by SrcIP_s, DestPort, bin(TimeGenerated, 5m)
+| where Verbindungen > 100
+| sort by Verbindungen desc
