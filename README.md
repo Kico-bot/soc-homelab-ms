@@ -266,12 +266,8 @@ SecurityIncident
 │   ├── 14_vulnerability-management.png
 │   └── 15_soar-playbook.png
 ├── 📁 kql-queries/
-│   ├── brute-force-detection.kql
-│   ├── geoip-enrichment.kql
-│   ├── ndr-anomalies.kql
-│   └── vulnerability-critical.kql
-└── 📁 playbooks/
-    └── auto-block-ip.json
+│   ├── KQL SOC Collection.kql
+└── 
 ```
 
 ---
